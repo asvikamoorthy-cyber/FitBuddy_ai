@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FitBuddy AI - Registration</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #edf2f7; margin: 0; padding: 40px; display: flex; justify-content: center; align-items: center; min-height: 90vh; }
+        .container { background: white; padding: 35px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); max-width: 500px; width: 100%; border: 1px solid #d2e4f6; position: relative; }
+        .ai-mascot { position: absolute; top: -45px; right: 20px; width: 85px; height: 85px; background: white; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; font-size: 45px; border: 3px solid #3498db; }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 5px; }
+        .subtitle { color: #7f8c8d; text-align: center; margin-bottom: 30px; font-size: 14px; }
+        .form-row { display: flex; gap: 15px; }
+        .form-group { margin-bottom: 20px; flex: 1; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #34495e; font-size: 14px; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 8px; box-sizing: border-box; font-size: 14px; background-color: #f8fafc; }
+        button { width: 100%; background-color: #3498db; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        button:hover { background-color: #2980b9; }
+        .admin-link { display: block; text-align: center; margin-top: 15px; color: #7f8c8d; font-size: 13px; text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="ai-mascot">🤖</div>
+    <h1>FitBuddy AI</h1>
+    <p class="subtitle">Initialize your tailored workout adventure profile</p>
+    <form action="/generate-plan" method="POST">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Alex Rivera" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" placeholder="25" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Non-Binary">Non-Binary</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="number" id="weight" name="weight" placeholder="65" required>
+            </div>
+            <div class="form-group">
+                <label for="height">Height (cm)</label>
+                <input type="number" id="height" name="height" placeholder="170" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="days">Workout Days Per Week</label>
+            <select id="days" name="days">
+                <option value="3">3 Days (Foundational Split)</option>
+                <option value="4">4 Days (Optimized Target Split)</option>
+                <option value="5">5 Days (Advanced Intensity Split)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="goal">Objective</label>
+            <select id="goal" name="goal">
+                <option value="Weight Loss">Weight Loss 🎈</option>
+                <option value="Muscle Gain">Muscle Gain 💪</option>
+                <option value="Endurance">Endurance Training 🏃‍♂️</option>
+                <option value="General Health">General Fitness 🌟</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="level">Experience Level</label>
+            <select id="level" name="level">
+                <option value="Beginner">Beginner (Foundational)</option>
+                <option value="Intermediate">Intermediate (Rising Star)</option>
+                <option value="Advanced">Advanced (Elite Level)</option>
+            </select>
+        </div>
+        <button type="submit">Generate Custom Blueprint</button>
+    </form>
+    <a href="/users" class="admin-link">🛡️ View Database Admin Registry</a>
+</div>
+</body>
+</html>

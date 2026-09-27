@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FitBuddy - User Profile Blueprint</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #edf2f7; padding: 40px; display: flex; justify-content: center; }
+        .container { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); max-width: 650px; width: 100%; border: 1px solid #d2e4f6; position: relative; }
+        .ai-mascot { position: absolute; top: -45px; right: 20px; width: 85px; height: 85px; background: white; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; font-size: 45px; border: 3px solid #3498db; }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 25px; }
+        h2 { color: #34495e; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-top: 35px; }
+        .alert-success { background-color: #def7ec; border: 1px solid #31c48d; color: #03543f; padding: 12px; border-radius: 8px; margin-bottom: 25px; font-weight: 600; text-align: center; }
+        .stats-grid { background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 25px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; font-size: 14px; border: 1px solid #e2e8f0; }
+        .badge { background: #e2e8f0; color: #4a5568; padding: 4px 10px; border-radius: 12px; font-weight: bold; margin-left: 5px; }
+        
+        .nutrition-card { background: #fffaf0; border: 1px solid #feebc8; border-left: 5px solid #dd6b20; padding: 20px; border-radius: 8px; margin: 25px 0; }
+        .nutrition-card h3 { margin: 0 0 8px 0; color: #dd6b20; display: flex; align-items: center; gap: 8px; font-size: 18px; }
+        .nutrition-card p { margin: 0; color: #7b341e; font-size: 14px; line-height: 1.6; }
+
+        .feedback-card { background: #f7fafc; border: 1px solid #e2e8f0; padding: 25px; border-radius: 12px; margin-top: 40px; }
+        .feedback-card h3 { color: #2b6cb0; margin-top: 0; font-size: 18px; text-align: center; }
+        .feedback-card label { display: block; font-weight: 600; margin-bottom: 8px; color: #4a5568; font-size: 14px; }
+        .feedback-card input, .feedback-card textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 8px; margin-bottom: 15px; box-sizing: border-box; }
+        .fb-btn { background: #3498db; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; font-size: 15px; }
+        .fb-btn:hover { background: #2980b9; }
+        
+        .plan-box { background: #fafafa; border: 1px solid #eaeaea; padding: 20px; border-radius: 8px; font-family: monospace; white-space: pre-wrap; color: #333; line-height: 1.5; font-size: 13px; }
+        .btn-home { display: block; text-align: center; margin-top: 25px; color: #3498db; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="ai-mascot">🤖</div>
+    <h1>User Profile Blueprint Dashboard</h1>
+
+    {% if alert_msg %}
+        <div class="alert-success">✅ {{ alert_msg }}</div>
+    {% endif %}
+
+    <div class="stats-grid">
+        <div>🆔 <strong>User Registration ID:</strong> <span class="badge" style="background:#e0f2fe; color:#0369a1;">{{ user.id }}</span></div>
+        <div>👤 <strong>Profile Name:</strong> <span class="badge">{{ user.name }}</span></div>
+        <div>🎂 <strong>Age Metric:</strong> <span class="badge">{{ user.age }} yrs</span></div>
+        <div>👫 <strong>Gender:</strong> <span class="badge">{{ user.gender }}</span></div>
+        <div>⚖️ <strong>Weight Metrics:</strong> <span class="badge">{{ user.weight }} kg</span></div>
+        <div>📏 <strong>Height Index:</strong> <span class="badge">{{ user.height }} cm</span></div>
+        <div>🎯 <strong>Core Objective:</strong> <span class="badge" style="background:#fef3c7; color:#d97706;">{{ user.goal }}</span></div>
+        <div>🏆 <strong>Experience Level:</strong> <span class="badge" style="background:#e0f2fe; color:#0284c7;">{{ user.level }}</span></div>
+    </div>
+
+    <div class="nutrition-card">
+        <h3>💡 Nutrition Tip</h3>
+        <p><strong>Prioritize high-value dietary protein loops:</strong> Aim for a clean, regular source of lean amino matrices (like grilled poultry breast, fresh ocean catch, clean legumes, or Greek yogurt blends) structural alignment inside every targeted meal log block. Balanced nutrition repairs broken muscle tissue fibers, maintains macro saturation profiles, and boosts operational calorie burn velocity across both fat reduction and athletic bulking regimens!</p>
+    </div>
+
+    <h2>📅 Current Active Workout Schedule</h2>
+    <div class="plan-box">{% if user.updated_plan %}{{ user.updated_plan }}{% else %}{{ user.original_plan }}{% endif %}</div>
+
+    {% if user.updated_plan %}
+        <h2>📜 Original Baseline Plan Archive</h2>
+        <div class="plan-box" style="background:#f1f5f9; color:#64748b;">{{ user.original_plan }}</div>
+    {% endif %}
+
+    <div class="feedback-card">
+        <h3>📝 Share Your Feedback</h3>
+        <form action="/submit-feedback" method="POST">
+            <label for="user_id">Your Unique User ID Verification</label>
+            <input type="number" id="user_id" name="user_id" value="{{ user.id }}" readonly required>
+
+            <label for="feedback_text">Provide specific details regarding program effectiveness, session workloads, or layout structural tracking preferences:</label>
+            <textarea id="feedback_text" name="feedback_text" rows="4" placeholder="Let us know how we can improve your plan..." required></textarea>
+            
+            <button type="submit" class="fb-btn">Submit Adaptive Feedback Log</button>
+        </form>
+    </div>
+
+    <a href="/" class="btn-home">← Register Another Profile Account</a>
+</div>
+</body>
+</html>

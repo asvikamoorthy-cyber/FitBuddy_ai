@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FitBuddy - All Users & Workout Plans</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f7fafc; margin: 0; padding: 25px; }
+        .header-container { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 25px; border: 1px solid #e2e8f0; text-align: center; }
+        h1 { color: #2d3748; margin: 0; font-size: 24px; }
+        .table-wrapper { background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { background-color: #3498db; color: white; padding: 14px; text-transform: uppercase; font-size: 11px; }
+        td { padding: 14px; border-bottom: 1px solid #edf2f7; vertical-align: top; color: #4a5568; }
+        .plan-display { font-family: monospace; font-size: 12px; background: #f7fafc; padding: 10px; border-radius: 6px; border: 1px solid #e2e8f0; white-space: pre-wrap; max-width: 300px; }
+        .badge { background: #edf2f7; color: #4a5568; padding: 3px 8px; border-radius: 8px; font-weight: bold; font-size: 11px; display: inline-block; margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="header-container">
+    <h1>📋 FitBuddy - All Users & Workout Plans</h1>
+</div>
+
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Metrics Log</th>
+                <th>Goal Summary</th>
+                <th>Original Workout Plan</th>
+                <th>Updated Adaptive Plan</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            <tr>
+                <td><strong>{{ u.id }}</strong></td>
+                <td><span style="font-weight: 600; color: #2d3748;">{{ u.name }}</span></td>
+                <td>{{ u.age }}</td>
+                <td>
+                    <span class="badge">Gen: {{ u.gender }}</span><br>
+                    <span class="badge">W: {{ u.weight }} kg</span><br>
+                    <span class="badge">H: {{ u.height }} cm</span>
+                </td>
+                <td>
+                    <span class="badge">{{ u.goal }}</span><br>
+                    <span class="badge">{{ u.level }}</span><br>
+                    <span class="badge">{{ u.days }} Days/Wk</span>
+                </td>
+                <td><div class="plan-display">{{ u.original_plan }}</div></td>
+                <td>
+                    {% if u.updated_plan %}
+                        <div class="plan-display" style="background: #f0fdf4;">{{ u.updated_plan }}</div>
+                        <p style="font-size:11px; font-style:italic;">💬 Feedback: "{{ u.feedback_text }}"</p>
+                    {% else %}
+                        <span style="color:#a0aec0; font-style:italic;">No changes logged.</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            {% if not users %}
+            <tr>
+                <td colspan="7" style="text-align:center; padding:20px; color:#a0aec0;">No records found.</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+<center><a href="/" style="display:inline-block; margin-top:20px; color:#3498db; text-decoration:none; font-weight:bold;">← Return Home</a></center>
+</body>
+</html>
